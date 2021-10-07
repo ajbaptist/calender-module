@@ -1,10 +1,6 @@
-// ignore_for_file: sized_box_for_whitespace
-
 import 'package:calender/cal/extra/style.dart';
-
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'date_widget.dart';
 import 'extra/color.dart';
 import 'gestures/tap.dart';
@@ -13,6 +9,7 @@ class DatePicker extends StatefulWidget {
   final DateTime startDate;
   final double width;
   final double height;
+  final bool enableMultiSelection;
   final Color selectedTextColor;
   final Color selectionColor;
   final TextStyle monthTextStyle;
@@ -30,6 +27,7 @@ class DatePicker extends StatefulWidget {
     Key? key,
     this.width = 60,
     this.height = 70,
+    this.enableMultiSelection = false,
     this.monthTextStyle = defaultMonthTextStyle,
     this.dayTextStyle = defaultDayTextStyle,
     this.dateTextStyle = defaultDateTextStyle,
@@ -77,7 +75,7 @@ class _DatePickerState extends State<DatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.height,
       child: ListView.builder(
         itemCount: widget.daysCount,
@@ -101,16 +99,21 @@ class _DatePickerState extends State<DatePicker> {
             dayTextStyle: isSelected ? selectedDayStyle : widget.dayTextStyle,
             width: widget.width,
             locale: widget.locale,
+            isMultiSelectionEnable: widget.enableMultiSelection,
+            activeColor: widget.selectionColor,
             //for color change
             selectionColor:
                 isSelected ? widget.selectionColor : const Color(0XFFEDF3FF),
             onDateSelected: (selectedDate) {
-              if (widget.onDateChange != null) {
-                widget.onDateChange!(selectedDate);
+              //make changes
+              if (widget.enableMultiSelection == false) {
+                if (widget.onDateChange != null) {
+                  widget.onDateChange!(selectedDate);
+                }
+                setState(() {
+                  _currentDate = selectedDate;
+                });
               }
-              setState(() {
-                _currentDate = selectedDate;
-              });
             },
           );
         },

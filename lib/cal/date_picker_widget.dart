@@ -18,6 +18,7 @@ class DatePicker extends StatefulWidget {
   final DateTime? /*?*/ initialSelectedDate;
   final List<DateTime>? activeDates;
   final DateChangeListener? onDateChange;
+  final MultiSelectionListener? multiSelectionListener;
   final int daysCount;
   final String locale;
 
@@ -34,6 +35,7 @@ class DatePicker extends StatefulWidget {
     this.selectedTextColor = Colors.white,
     this.selectionColor = AppColors.defaultSelectionColor,
     this.initialSelectedDate,
+    this.multiSelectionListener,
     this.activeDates,
     this.daysCount = 500,
     this.onDateChange,
@@ -102,10 +104,12 @@ class _DatePickerState extends State<DatePicker> {
             isMultiSelectionEnable: widget.enableMultiSelection,
             activeColor: widget.selectionColor,
             activeDateStyle: selectedDateStyle,
+
             activeDayStyle: selectedDayStyle,
             //for color change
             selectionColor:
                 isSelected ? widget.selectionColor : const Color(0XFFEDF3FF),
+
             onDateSelected: (selectedDate) {
               //make changes
               if (widget.enableMultiSelection == false) {
@@ -114,6 +118,12 @@ class _DatePickerState extends State<DatePicker> {
                 }
                 setState(() {
                   _currentDate = selectedDate;
+                });
+              } else {
+                setState(() {
+                  if (widget.multiSelectionListener != null) {
+                    widget.multiSelectionListener!(list);
+                  }
                 });
               }
             },
@@ -129,3 +139,5 @@ class _DatePickerState extends State<DatePicker> {
         date1.year == date2.year;
   }
 }
+
+List list = [];

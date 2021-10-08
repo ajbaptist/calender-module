@@ -101,6 +101,8 @@ class _DatePickerState extends State<DatePicker> {
             locale: widget.locale,
             isMultiSelectionEnable: widget.enableMultiSelection,
             activeColor: widget.selectionColor,
+            activeDateStyle: selectedDateStyle,
+            activeDayStyle: selectedDayStyle,
             //for color change
             selectionColor:
                 isSelected ? widget.selectionColor : const Color(0XFFEDF3FF),

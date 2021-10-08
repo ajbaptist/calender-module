@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Horizontal Calendar Demo',
-      home: MyHomePage(title: 'Calendar Single Selection'),
+      home: MyHomePage(title: 'Calendar Multi Selection'),
     );
   }
 }

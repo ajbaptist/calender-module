@@ -8,6 +8,8 @@ class DateWidget extends StatefulWidget {
   final TextStyle? monthTextStyle, dayTextStyle, dateTextStyle;
   final Color selectionColor;
   final Color activeColor;
+  final TextStyle activeDayStyle;
+  final TextStyle activeDateStyle;
   final DateSelectionCallback? onDateSelected;
   final bool isMultiSelectionEnable;
   final String? locale;
@@ -17,6 +19,8 @@ class DateWidget extends StatefulWidget {
     required this.date,
     required this.monthTextStyle,
     required this.dayTextStyle,
+    required this.activeDateStyle,
+    required this.activeDayStyle,
     required this.activeColor,
     required this.isMultiSelectionEnable,
     required this.dateTextStyle,
@@ -54,13 +58,24 @@ class _DateWidgetState extends State<DateWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                  DateFormat("EEE", widget.locale)
-                      .format(widget.date)
-                      .substring(0, 1)
-                      .toUpperCase(), // WeekDay
-                  style: widget.dayTextStyle),
-              Text(widget.date.day.toString(), // Date
-                  style: widget.dateTextStyle),
+                DateFormat("EEE", widget.locale)
+                    .format(widget.date)
+                    .substring(0, 1)
+                    .toUpperCase(), // WeekDay
+                style: widget.isMultiSelectionEnable == true
+                    ? isSelect == false
+                        ? widget.dayTextStyle
+                        : widget.activeDayStyle
+                    : widget.dayTextStyle,
+              ),
+              Text(
+                widget.date.day.toString(), // Date
+                style: widget.isMultiSelectionEnable == true
+                    ? isSelect == false
+                        ? widget.dateTextStyle
+                        : widget.activeDateStyle
+                    : widget.dateTextStyle,
+              ),
             ],
           ),
         ),
@@ -81,3 +96,9 @@ class _DateWidgetState extends State<DateWidget> {
     );
   }
 }
+
+
+
+
+
+// widget.dateTextStyle

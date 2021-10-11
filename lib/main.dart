@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             DatePicker(
               dateTime,
               daysCount: days,
-              // enableMultiSelection: true,
+              enableMultiSelection: true,
               selectionColor: const Color(0XFF0342E9),
               selectedTextColor: Colors.white,
               onDateChange: (data) {

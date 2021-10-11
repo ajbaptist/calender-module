@@ -10,4 +10,4 @@ typedef DateChangeListener = void Function(DateTime selectedDate);
 ///
 typedef MultiSelectionListener = void Function(List selectedDates);
 
-typedef BoolListener = void Function(bool isMultiSelect, DateTime dateTime);
+typedef BoolListener = void Function(bool isMultiSelect);
